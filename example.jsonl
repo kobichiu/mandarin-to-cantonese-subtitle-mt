@@ -1,0 +1,27 @@
+{"input":"老大", "target":"大佬"}
+
+{"input":"何况明天这种日子", "target":"何況聽日咁嘅日子"}
+{"input":"明天这场合", "target":"何況聽日咁嘅日子"}
+
+{"input":"杯子啊", "target":"隻杯啊"}
+{"input":"杯子忘拿了", "target":"隻杯啊"}
+
+{"input":"跑路去台湾", "target":"着草去台灣"}
+
+{"input":"他這混蛋", "target":"佢個契弟"}
+{"input":"他个王八蛋", "target":"佢個契弟"}
+
+{"input":"就数你最在行", "target":"你就最出位嘅"}
+{"input":"就数你最出位", "target":"你就最出位嘅"}
+
+{"input":"證明你心裏還有我", "target":"證明仲有我心"}
+{"input":"説明你還惦記着我", "target":"證明仲有我心"}
+
+{"input":"我帮帮你吧", "target":"我幫下你啦"}
+{"input":"我来帮你吧", "target":"我幫下你啦"}
+
+{"input":"明白了", "target":"知啦"}
+{"input":"知道了", "target":"知啦"}
+
+{"input":"你别闹了", "target":"你唔好玩啦"}
+{"input":"你消停点", "target":"你唔好玩啦"}
