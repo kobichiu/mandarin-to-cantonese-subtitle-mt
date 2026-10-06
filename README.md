@@ -2,6 +2,8 @@
 
 ## Bachelor's Thesis by Hing Man Kobi Chiu
 
+📄 **Full thesis (PDF):** [here](https://github.com/kobichiu/mandarin-to-cantonese-subtitle-mt/blob/main/BA_thesis_Hing-Man_Kobi_Chiu.pdf)
+
 Hong Kong cinema has contributed many remarkable movies to the world. Even though its golden age in the 80s-90s passed, its subtitles are valuable data for Cantonese linguistics. As a fan, I was inspired to explore machine translation between Mandarin and Cantonese from the perspective of movie subtitles, under the umbrella of the Chinese language.
 
 In this project, 4 Hong Kong movies produced between the 80s and 90s were selected to build a Mandarin–Cantonese parallel corpus in JSONL (`.jsonl`). Mandarin subtitles from OpenSubtitles were the starting point. Lines that were missing or did not match the spoken dialogue were added or revised by listening to the audio. Because Cantonese has no standardised written form, the corpus was built with heavy manual involvement, following a structured annotation guideline to keep the quality consistent. Because of copyright, the parallel corpus is not available in this repository. A short sample, `example.jsonl`, is provided instead so that the preprocessing steps can be run and inspected.
