@@ -1,14 +1,18 @@
-# Seq2Seq Mandarin-to-Cantonese Style Transfer: Colloquial Subtitle Rewriting in Hong Kong Urban Cinema
+# Seq2Seq Mandarin-to-Cantonese Style Transfer: Colloquial Subtitle Translation in Hong Kong Urban Cinema, BA thesis by Hing Man Kobi CHIU
 
-## Bachelor's Thesis by Hing Man Kobi Chiu
+📍 **TL;DR:** Cantonese is under-resourced in NLP. So I built a Mandarin–Cantonese parallel corpus from the subtitles of four Hong Kong films, manually annotated and expanded through paraphrasing-based augmentation (9,948 trainable instances from 5,974 subtitle groups), and fine-tuned mT5-small for Mandarin-to-Cantonese translation of movie subtitles. As a result, the fine-tuned model underperformed the Google Translate baseline (Simplified Chinese → Cantonese). The fine-tuned model reached 28.66 BLEU (Google Translate baseline: 37.62), and normalising punctuation and script in its output raised this to 33.20. It learns basic lexical and syntactic correspondences, but its outputs often lack the naturalness and colloquial features of spoken Cantonese. The work offers a preliminary dataset and baseline for future research.
+
+🤖 **Tech:** Python · PyTorch · Hugging Face Transformers · SentencePiece · sacreBLEU · OpenCC
 
 📄 **Full thesis (PDF):** [here](https://github.com/kobichiu/mandarin-to-cantonese-subtitle-mt/blob/main/BA_thesis_Hing-Man_Kobi_Chiu.pdf)
 
+## Background
+
 Hong Kong cinema has contributed many remarkable movies to the world. Even though its golden age in the 80s-90s passed, its subtitles are valuable data for Cantonese linguistics. As a fan, I was inspired to explore machine translation between Mandarin and Cantonese from the perspective of movie subtitles, under the umbrella of the Chinese language.
 
-In this project, 4 Hong Kong movies produced between the 80s and 90s were selected to build a Mandarin–Cantonese parallel corpus in JSONL (`.jsonl`). Mandarin subtitles from OpenSubtitles were the starting point. Lines that were missing or did not match the spoken dialogue were added or revised by listening to the audio. Because Cantonese has no standardised written form, the corpus was built with heavy manual involvement, following a structured annotation guideline to keep the quality consistent. Because of copyright, the parallel corpus is not available in this repository. A short sample, `example.jsonl`, is provided instead so that the preprocessing steps can be run and inspected.
+In this project, 4 Hong Kong movies produced between the 80s and 90s were selected to build a Mandarin–Cantonese parallel corpus in JSONL (`.jsonl`). Mandarin subtitles from OpenSubtitles were the starting point. Lines that were missing or did not match the spoken dialogue were added or revised by listening to the audio. Because Cantonese has no standardised written form, the corpus was built with heavy manual involvement, following a structured annotation guideline to keep the quality consistent. Because of copyright, the parallel corpus is not available in this repository. A short synthetic sample, `example.jsonl`, is provided instead so that the preprocessing steps can be run and inspected.
 
-### Corpus Structure
+## Corpus Structure
 
 Each line is one subtitle pair. `input` is the Mandarin subtitle in Simplified Chinese, and `target` is the spoken Cantonese line in Traditional Chinese. A group is the original pair plus Mandarin paraphrases of the same Cantonese line, so the Mandarin side varies while the Cantonese side stays identical. Lines in a group are consecutive, and a blank line separates groups.
 
@@ -23,7 +27,7 @@ The parallel corpus looks like:
 
 Paraphrases were generated with DeepSeek-V3.2 and then checked by hand against the film context. After augmentation, the training set contains 9,948 instances from 5,974 groups. The dev and test sets keep only the original line of each group, 746 and 748 instances respectively, so no paraphrase reaches evaluation.
 
-### Experiment Details & Result
+## Experiment Details & Result
 
 `train.py` fine-tunes `google/mt5-small` for 5 epochs, with a batch size of 8, a learning rate of 2e-4, weight decay of 0.01, a maximum sequence length of 128 tokens, AdamW, beam search with 4 beams, and the best checkpoint selected on development loss.
 
@@ -39,7 +43,7 @@ Scores are computed with sacreBLEU using the `zh` tokenizer on the 748 test inst
 
 Google Translate still scores higher, but a large part of the gap is surface form. mT5-small often writes ASCII punctuation, such as `,` instead of `，`, and occasional Simplified characters, while the references use Chinese full-width punctuation and Traditional Chinese. Normalising both in the output raises BLEU from 28.66 to 33.20. The remaining gap is not only formatting: the model sometimes produces Traditional-character text that is still Mandarin in vocabulary and grammar, rather than colloquial Cantonese.
 
-### Scripts
+## Scripts
 
 All scripts take file paths as command-line arguments and read the JSONL format described above.
 
@@ -66,3 +70,4 @@ python simplify_mandarin.py example.jsonl example_simplified.jsonl
 python split_corpus.py example.jsonl train.jsonl dev.jsonl test.jsonl
 python train.py train.jsonl dev.jsonl --test test.jsonl
 python evaluate.py predictions.csv
+```
