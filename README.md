@@ -12,7 +12,7 @@ In this project, 4 Hong Kong movies produced between the 80s and 90s were select
 
 Each line is one subtitle pair. `input` is the Mandarin subtitle in Simplified Chinese, and `target` is the spoken Cantonese line in Traditional Chinese. A group is the original pair plus Mandarin paraphrases of the same Cantonese line, so the Mandarin side varies while the Cantonese side stays identical. Lines in a group are consecutive, and a blank line separates groups.
 
-How the parallel corpus looks like:
+The parallel corpus looks like:
 ```
 {"input":"明白了", "target":"知啦"} 
 {"input":"知道了", "target":"知啦"}
